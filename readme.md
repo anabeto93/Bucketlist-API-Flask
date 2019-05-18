@@ -1,7 +1,7 @@
 # RESTful BucketList API built Test Driven Development
 
 ## Description
-This is simply a bucketlist API which lists the goals an individual wants to achieve, dreams to fulfill and those desired life experiences (like traveling to Dubai and seeing the inside of Intel and Samsung manufactoring :stuck_out_tongue_winking_eye:)
+This is simply a bucketlist API which lists the goals an individual wants to achieve, dreams to fulfill and those desired life experiences (like traveling to Dubai and also, having worked at Google and or seeing the inside of Intel and Samsung manufactoring :stuck_out_tongue_winking_eye:)
 
 ## Installation
 You can and should create a virtual environment for it before you run it on your machine.
@@ -24,6 +24,8 @@ If you are using a virtual machine (vagrant) like I am, then you can do the foll
 
 Change directory to where the source code is located on the VM (eg. `/home/vagrant/Codes/bucketlist`).
 Run `flask run --port=8000 --host=192.168.44.10` where `192.168.44.10` is the IP of my VM. Change it to reflect to yours.
+
+Ensure to also have your database setup and running on your machine. In this case we are using Postgresql. Follow the link here, [Install and Use PostgreSQL](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04) to setup on your machine (VM in my case.)
 
 ## Tests
 
