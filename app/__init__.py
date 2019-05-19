@@ -61,4 +61,38 @@ def create_app(config_name):
 
             return response
 
+    #GET bucketlist by id
+    @app.route('/bucketlists/<int:id>', methods=['GET'])
+    def get_bucketlist(id, **kwargs):
+        bl = get_by_id(id)
+
+        if bl == 404:
+            abort(404)
+        
+        response = serialize_bucketlist(bl, 200)
+
+        return response
+    
+    def get_by_id(id):
+        ''' Get a bucketlist given the id '''
+        bl = BucketList.query.filter_by(id=id).first()
+
+        if not bl:
+            print('Bucketlist with id: {} not found'.format(id))
+            return 404
+        
+        return bl
+
+    def serialize_bucketlist(bucketlist, status_code):
+        response = jsonify({
+            'id': bucketlist.id,
+            'name': bucketlist.name,
+            'created_at': bucketlist.date_created,
+            'updated_at': bucketlist.date_modified
+        })
+
+        response.status_code = status_code
+
+        return response
+
     return app
