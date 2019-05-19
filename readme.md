@@ -28,11 +28,23 @@ Run `flask run --port=8000 --host=192.168.44.10` where `192.168.44.10` is the IP
 Ensure to also have your database setup and running on your machine. In this case we are using Postgresql. Follow the link here, [Install and Use PostgreSQL](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04) to setup on your machine (VM in my case.)
 
 ## Tests
+You need to export certain environment variables before you attempt to run the tests.
+
+```bash
+export TEST_DATABASE_URL="postgresql://YOUR_USERNAME:YOUR_PASSWORD@localhost/TEST_DB_NAME_HERE"
+```
+
+The basic syntax for PostGres connection which you should take notice of in your code.
+
+```python
+SQLALCHEMY_DATABASE_URI = 'postgresql://USERNAME:PASSWORD@localhost:5432/DATABASE'
+```
+
 Run the below command to execute the tests against the bucketlists
 
-'''
+```bash
 python tests/test_bucket.py
-'''
+```
 
 ## Contribution and Acknowledgements
 
