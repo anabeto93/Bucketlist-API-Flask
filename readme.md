@@ -28,6 +28,11 @@ Run `flask run --port=8000 --host=192.168.44.10` where `192.168.44.10` is the IP
 Ensure to also have your database setup and running on your machine. In this case we are using Postgresql. Follow the link here, [Install and Use PostgreSQL](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04) to setup on your machine (VM in my case.)
 
 ## Tests
+Run the below command to execute the tests against the bucketlists
+
+'''
+python tests/test_bucket.py
+'''
 
 ## Contribution and Acknowledgements
 
