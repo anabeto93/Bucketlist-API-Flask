@@ -50,6 +50,7 @@ class BucketListTestCase(unittest.TestCase):
         self.assertIn('Work at Google', str(res.data))
 
         json_result = json.loads(res.data.decode('utf-8').replace("'", "\""))
+
         result = self.client().get(
             '/bucketlists/{}'.format(json_result['id']))
 
@@ -77,7 +78,7 @@ class BucketListTestCase(unittest.TestCase):
         current = self.client().get('/bucketlists/{}'.format(b_data['id']))
         self.assertIn('Build wall mounted', str(current.data))
 
-    def test_bucketlist_deletion(self):
+    def test_bucketlist_can_be_deleted(self):
         '''Test the API that given an id a bucketlist can be deleted. (DELETE request).'''
 
         #create the resource
@@ -87,8 +88,14 @@ class BucketListTestCase(unittest.TestCase):
 
         #delete this absurd bucketlist
         data = json.loads(res.data.decode('utf-8').replace("'", "\""))
+        result = self.client().delete('/bucketlists/{}'.format(data['id']))
+        self.assertEqual(result.status_code, 200) #deletion successful
+
+        #try to get the same resource
         result = self.client().get('/bucketlists/{}'.format(data['id']))
-        self.assertEqual(result.status_code, 404) #given id deleted and no longer exists
+        self.assertEqual(result.status_code, 404) #item not found
+
+
 
     def tearDown(self):
         '''teardown all initialized variables.'''
