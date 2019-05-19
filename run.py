@@ -1,3 +1,4 @@
+#!/usr/bin/python3.7
 import os
 
 from app import create_app
