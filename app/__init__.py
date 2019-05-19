@@ -72,6 +72,23 @@ def create_app(config_name):
         response = serialize_bucketlist(bl, 200)
 
         return response
+
+    #Update a bucketlist
+    @app.route('/bucketlists/<int:id>', methods=['PUT'])
+    def update_bucketlist(id, **kwargs):
+        bl = get_by_id(id)
+
+        if bl == 404:
+            abort(404)
+
+        #get the name sent
+        name = str(request.data.get('name', bl.name)) #maintain the current name
+        bl.name = name
+        bl.save()
+
+        response = serialize_bucketlist(bl, 200)
+
+        return response
     
     def get_by_id(id):
         ''' Get a bucketlist given the id '''
