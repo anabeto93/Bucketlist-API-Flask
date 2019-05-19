@@ -50,6 +50,6 @@ python tests/test_bucket.py
 
 This fun project was built based on a blog I had read earlier on about TDD which can be found here, [Build a RESTful API with Flask the TDD Way](https://scotch.io/tutorials/build-a-restful-api-with-flask-the-tdd-way). However there are some slight variations if you are observant.
 
-The link shared above have some minor mistakes here are there which have been fixed in this repository. In case you can to learn more about TDD, kindly visit the link at [Intro to Flask Test Driven Development](https://github.com/mjhea0/flaskr-tdd)
+The link shared above has some typos and minor mistakes here are there which have been fixed in this repository. In case you wish to learn more about TDD, kindly visit the link at [Intro to Flask Test Driven Development](https://github.com/mjhea0/flaskr-tdd)
 
 Thank you.
