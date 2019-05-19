@@ -47,6 +47,8 @@ class BucketListTestCase(unittest.TestCase):
         #now get the lists of all bucketlists
         res = self.client().get('/bucketlists')
         self.assertEqual(res.status_code, 200) #no errors
+        print('all bucketlists')
+        print(res.data)
         self.assertIn('Learn Ruby on Rails', str(res.data))
 
     def test_api_can_get_bucketlist_by_id(self):
@@ -58,9 +60,11 @@ class BucketListTestCase(unittest.TestCase):
         self.assertIn('Work at Google', str(res.data))
 
         json_result = json.loads(res.data.decode('utf-8').replace("'", "\""))
+        print('Json Result Upon stringifying')
+        print(json_result)
 
         result = self.client().get(
-            '/bucketlists/{}'.format(json_result['id']))
+            '/bucketlists/{}'.format(json_result['data']['id']))
 
         self.assertEqual(result.status_code, 200)
         self.assertIn('Work at Google', str(result.data))
@@ -77,13 +81,13 @@ class BucketListTestCase(unittest.TestCase):
 
         #edit or update the created bucketlist
         res = self.client().put(
-            '/bucketlists/{}'.format(b_data['id']),
+            '/bucketlists/{}'.format(b_data['data']['id']),
             data={'name': 'Build wall mounted PC'}
         )
         self.assertEqual(res.status_code, 200) #update successful
 
         #get the current or newly created resource
-        current = self.client().get('/bucketlists/{}'.format(b_data['id']))
+        current = self.client().get('/bucketlists/{}'.format(b_data['data']['id']))
         self.assertIn('Build wall mounted', str(current.data))
 
     def test_bucketlist_can_be_deleted(self):
@@ -96,11 +100,11 @@ class BucketListTestCase(unittest.TestCase):
 
         #delete this absurd bucketlist
         data = json.loads(res.data.decode('utf-8').replace("'", "\""))
-        result = self.client().delete('/bucketlists/{}'.format(data['id']))
+        result = self.client().delete('/bucketlists/{}'.format(data['data']['id']))
         self.assertEqual(result.status_code, 200) #deletion successful
 
         #try to get the same resource
-        result = self.client().get('/bucketlists/{}'.format(data['id']))
+        result = self.client().get('/bucketlists/{}'.format(data['data']['id']))
         self.assertEqual(result.status_code, 404) #item not found
 
 

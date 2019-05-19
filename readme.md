@@ -52,4 +52,4 @@ This fun project was built based on a blog I had read earlier on about TDD which
 
 The link shared above has some typos and minor mistakes here are there which have been fixed in this repository. In case you wish to learn more about TDD, kindly visit the link at [Intro to Flask Test Driven Development](https://github.com/mjhea0/flaskr-tdd)
 
-Thank you.
+Thank you.s

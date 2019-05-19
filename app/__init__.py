@@ -25,6 +25,7 @@ def create_app(config_name):
     @app.route('/')
     def welcome():
         return '<h3>Flask TDD Bucketlist APP</h3>'
+
     #get and create a bucketlist
     @app.route('/bucketlists', methods=['POST', 'GET'])
     def bucketlists():
@@ -35,13 +36,14 @@ def create_app(config_name):
                 b_list.save()
 
                 #return the response
-                response = jsonify({
-                    'id': b_list.id,
-                    'name': b_list.name,
-                    'created_at': b_list.date_created,
-                    'updated_at': b_list.date_modified
-                })
-                response.status_code = 201
+                # response = jsonify({
+                #     'id': b_list.id,
+                #     'name': b_list.name,
+                #     'created_at': b_list.date_created,
+                #     'updated_at': b_list.date_modified
+                # })
+                # response.status_code = 201
+                response = serialize_bucketlist(b_list, 201)
 
                 return response
         else:
@@ -123,15 +125,35 @@ def create_app(config_name):
         return bl
 
     def serialize_bucketlist(bucketlist, status_code):
-        response = jsonify({
+        response = {
             'id': bucketlist.id,
             'name': bucketlist.name,
             'created_at': bucketlist.date_created,
             'updated_at': bucketlist.date_modified
-        })
+        }
 
-        response.status_code = status_code
+        #response.status_code = status_code
+        response = api_response('success', status_code, data=response)
 
         return response
+
+    def api_response(status='success', code=200, reason=None, data=None):
+        result = {}
+
+        result['status'] = status
+        result['code'] = code
+
+        if reason:
+            result['reason'] = reason
+
+        if data != None:
+            result['data'] = data
+
+        # print('Final Api Response')
+        # print (result)
+        result = jsonify(result)
+        result.status_code = code
+
+        return result
 
     return app
