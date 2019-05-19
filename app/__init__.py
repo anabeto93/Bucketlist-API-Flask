@@ -21,6 +21,10 @@ def create_app(config_name):
     #import the models
     from models.bucket import BucketList
 
+    #application base route
+    @app.route('/')
+    def welcome():
+        return '<h3>Flask TDD Bucketlist APP</h3>'
     #get and create a bucketlist
     @app.route('/bucketlists', methods=['POST', 'GET'])
     def bucketlists():

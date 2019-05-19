@@ -20,6 +20,14 @@ class BucketListTestCase(unittest.TestCase):
             #create all the tables as well
             app.db.create_all()
 
+    def test_base_url(self):
+        '''Test the base url exists (GET request).'''
+        
+        res = self.client().get('/', content_type='html/text')
+
+        self.assertEqual(res.status_code, 200)
+        self.assertIn('Flask TDD', str(res.data))
+
     def test_bucketlist_creation(self):
         '''Test the API can create a bucketlist (POST request).'''
         
