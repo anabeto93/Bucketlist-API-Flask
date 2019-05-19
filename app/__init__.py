@@ -22,7 +22,7 @@ def create_app(config_name):
     from models.bucket import BucketList
 
     #get and create a bucketlist
-    @app.route('/bucketlists/', methods=['POST', 'GET'])
+    @app.route('/bucketlists', methods=['POST', 'GET'])
     def bucketlists():
         if request.method == "POST":
             name = str(request.data.get('name', '')) # return empty by default

@@ -23,7 +23,7 @@ class BucketListTestCase(unittest.TestCase):
     def test_bucketlist_creation(self):
         '''Test the API can create a bucketlist (POST request).'''
         
-        res = self.client().post('/bucketlists/', data=self.bucketlist)
+        res = self.client().post('/bucketlists', data=self.bucketlist)
         self.assertEqual(res.status_code, 201) #resource created
         self.assertIn('Work at Andela', str(res.data))
 
@@ -32,12 +32,12 @@ class BucketListTestCase(unittest.TestCase):
 
         #note that, one test shouldn't affect the next test
         #first create a bucketlist
-        res = self.client().post('/bucketlists/', data={'name': 'Learn Ruby on Rails'})
+        res = self.client().post('/bucketlists', data={'name': 'Learn Ruby on Rails'})
         self.assertEqual(res.status_code, 201) #the bucketlist was created
         self.assertIn('Learn Ruby on Rails', str(res.data))
 
         #now get the lists of all bucketlists
-        res = self.client().get('/bucketlists/')
+        res = self.client().get('/bucketlists')
         self.assertEqual(res.status_code, 200) #no errors
         self.assertIn('Learn Ruby on Rails', str(res.data))
 
@@ -45,7 +45,7 @@ class BucketListTestCase(unittest.TestCase):
         '''Test that API to ensure it can return a bucketlist given the id. (GET request).'''
 
         #create the bucketlist once again
-        res = self.client().post('/bucketlists/', data={'name': 'Work at Google'})
+        res = self.client().post('/bucketlists', data={'name': 'Work at Google'})
         self.assertEqual(res.status_code, 201) #the bucketlist was created
         self.assertIn('Work at Google', str(res.data))
 
@@ -81,7 +81,7 @@ class BucketListTestCase(unittest.TestCase):
         '''Test the API that given an id a bucketlist can be deleted. (DELETE request).'''
 
         #create the resource
-        res = self.client().post('/bucketlists/', data={'name': 'Time travel'})
+        res = self.client().post('/bucketlists', data={'name': 'Time travel'})
         self.assertEqual(res.status_code, 201) #the bucketlist was created
         self.assertIn('Time travel', str(res.data))
 
