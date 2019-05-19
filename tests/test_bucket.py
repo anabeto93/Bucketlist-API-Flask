@@ -34,7 +34,7 @@ class BucketListTestCase(unittest.TestCase):
         #first create a bucketlist
         res = self.client().post('/bucketlists/', data={'name': 'Learn Ruby on Rails'})
         self.assertEqual(res.status_code, 201) #the bucketlist was created
-        res.assertIn('Learn Ruby on Rails', str(res.data))
+        self.assertIn('Learn Ruby on Rails', str(res.data))
 
         #now get the lists of all bucketlists
         res = self.client().get('/bucketlists/')
@@ -47,7 +47,7 @@ class BucketListTestCase(unittest.TestCase):
         #create the bucketlist once again
         res = self.client().post('/bucketlists/', data={'name': 'Work at Google'})
         self.assertEqual(res.status_code, 201) #the bucketlist was created
-        res.assertIn('Work at Google', str(res.data))
+        self.assertIn('Work at Google', str(res.data))
 
         json_result = json.loads(res.data.decode('utf-8').replace("'", "\""))
         result = self.client().get(
@@ -83,7 +83,7 @@ class BucketListTestCase(unittest.TestCase):
         #create the resource
         res = self.client().post('/bucketlists/', data={'name': 'Time travel'})
         self.assertEqual(res.status_code, 201) #the bucketlist was created
-        res.assertIn('Time travel', str(res.data))
+        self.assertIn('Time travel', str(res.data))
 
         #delete this absurd bucketlist
         data = json.loads(res.data.decode('utf-8').replace("'", "\""))
