@@ -35,14 +35,6 @@ def create_app(config_name):
                 b_list = BucketList(name=name)
                 b_list.save()
 
-                #return the response
-                # response = jsonify({
-                #     'id': b_list.id,
-                #     'name': b_list.name,
-                #     'created_at': b_list.date_created,
-                #     'updated_at': b_list.date_modified
-                # })
-                # response.status_code = 201
                 response = serialize_bucketlist(b_list, 201)
 
                 return response
@@ -62,8 +54,7 @@ def create_app(config_name):
 
                 results.append(data)
             
-            response = jsonify(results)
-            response.status_code = 200
+            response = api_response(reason='Successfully retrieved bucketlists.', data=results)
 
             return response
 
@@ -73,7 +64,7 @@ def create_app(config_name):
         bl = get_by_id(id)
 
         if bl == 404:
-            abort(404)
+            return api_response('declined',404,'Bucketlist with id {} not found'.format( id), {'id': id})
         
         response = serialize_bucketlist(bl, 200)
 
@@ -85,7 +76,7 @@ def create_app(config_name):
         bl = get_by_id(id)
 
         if bl == 404:
-            abort(404)
+            return api_response('declined',404,'Bucketlist with id {} not found'.format( id), {'id': id})
 
         #get the name sent
         name = str(request.data.get('name', bl.name)) #maintain the current name
@@ -102,7 +93,7 @@ def create_app(config_name):
         bl = get_by_id(id)
 
         if bl == 404:
-            abort(404)
+            return api_response('declined',404,'Bucketlist with id {} not found'.format( id), {'id': id})
 
         #delete it 
         bl.delete()
@@ -119,7 +110,7 @@ def create_app(config_name):
         bl = BucketList.query.filter_by(id=id).first()
 
         if not bl:
-            print('Bucketlist with id: {} not found'.format(id))
+            print('Bucketlist with id: {} not found'.format( id))
             return 404
         
         return bl

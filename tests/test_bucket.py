@@ -47,8 +47,8 @@ class BucketListTestCase(unittest.TestCase):
         #now get the lists of all bucketlists
         res = self.client().get('/bucketlists')
         self.assertEqual(res.status_code, 200) #no errors
-        print('all bucketlists')
-        print(res.data)
+        #print('all bucketlists')
+        #print(res.data)
         self.assertIn('Learn Ruby on Rails', str(res.data))
 
     def test_api_can_get_bucketlist_by_id(self):
@@ -60,8 +60,6 @@ class BucketListTestCase(unittest.TestCase):
         self.assertIn('Work at Google', str(res.data))
 
         json_result = json.loads(res.data.decode('utf-8').replace("'", "\""))
-        print('Json Result Upon stringifying')
-        print(json_result)
 
         result = self.client().get(
             '/bucketlists/{}'.format(json_result['data']['id']))
