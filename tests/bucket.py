@@ -40,7 +40,7 @@ class BucketListTestCase(unittest.TestCase):
         self.assertIn('Learn Ruby on Rails', str(res.data))
 
     def test_api_can_get_bucketlist_by_id(self):
-        '''Test that API to ensure it can return a bucketlist given the id.'''
+        '''Test that API to ensure it can return a bucketlist given the id. (GET request).'''
 
         #create the bucketlist once again
         res = self.client().post('/bucketlists/', data={'name': 'Work at Google'})
@@ -54,4 +54,26 @@ class BucketListTestCase(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertIn('Work at Google', str(result.data))
 
-    
+    def test_bucketlist_is_editable(self):
+        '''Test that an existing bucketlist can be edited. (PUT request)'''
+
+        res = self.client().post(
+            '/bucketlists',
+            data={'name': 'Build an overkill PC'})
+        self.assertEqual(res.status_code, 201) #created
+
+        b_data = json.loads(res.data.decode('utf-8').replace("'","\""))
+
+        #edit or update the created bucketlist
+        res = self.client().put(
+            '/bucketlists/{}'.format(b_data['id']),
+            data={'name': 'Build wall mounted PC'}
+        )
+        self.assertEqual(res.status_code, 200) #update successful
+
+        #get the current or newly created resource
+        current = self.client().get('/bucketlists/{}'.format(b_data['id']))
+        self.assertIn('Build wall mounted', str(results.data))
+
+        
+
