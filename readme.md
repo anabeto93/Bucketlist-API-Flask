@@ -10,11 +10,11 @@ Use the link found [here](https://virtualenvwrapper.readthedocs.io/en/latest/) t
 
 To create a virtual environment, simply run `mkvirtualenv bucketlist` OR `virtualenv bucketlist`. You can run your own command to create it though, as most will default to running `virtualenv venv`. Either case, it works.
 
-However, by setting the project directory, you can eventually come back and run `workon bucketlist` and it will immediately take you the project directory and well as activate the virtual environment.
+However, by setting the project directory, you can eventually come back and run `workon bucketlist` and it will immediately take you the project directory as well as activate the virtual environment.
 
 Finally run the below command to install all the necessary packages and modules. 
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
