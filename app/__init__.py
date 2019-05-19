@@ -89,6 +89,24 @@ def create_app(config_name):
         response = serialize_bucketlist(bl, 200)
 
         return response
+
+    #DELETE a given bucketlist
+    @app.route('/bucketlists/<int:id>', methods=['DELETE'])
+    def delete_bucketlist(id, **kwargs):
+        bl = get_by_id(id)
+
+        if bl == 404:
+            abort(404)
+
+        #delete it 
+        bl.delete()
+
+        response = jsonify({
+            'message': 'bucketlist with id {} deleted successfully'.format(bl.id)
+            })
+        response.status_code = 200
+
+        return response
     
     def get_by_id(id):
         ''' Get a bucketlist given the id '''
