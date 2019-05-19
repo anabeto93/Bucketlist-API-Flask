@@ -25,7 +25,7 @@ class BucketListTestCase(unittest.TestCase):
         
         res = self.client().post('/bucketlists/', data=self.bucketlist)
         self.assertEqual(res.status_code, 201) #resource created
-        self.assertIn('Work At Andela', str(res.data))
+        self.assertIn('Work at Andela', str(res.data))
 
     def test_api_can_get_all_bucketlists(self):
         '''Test the API can get all the bucketlists (GET request).'''

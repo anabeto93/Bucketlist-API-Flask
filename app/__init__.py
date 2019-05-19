@@ -42,6 +42,23 @@ def create_app(config_name):
                 return response
         else:
             # GET request by default
-            pass
+            bucketlists = BucketList.get_all()
+
+            results = []
+
+            for bl in bucketlists:
+                data = {
+                    'id': bl.id,
+                    'name': bl.name,
+                    'created_at': bl.date_created,
+                    'updated_at': bl.date_modified
+                }
+
+                results.append(data)
+            
+            response = jsonify(results)
+            response.status_code = 200
+
+            return response
 
     return app
