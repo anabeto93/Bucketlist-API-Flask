@@ -73,7 +73,27 @@ class BucketListTestCase(unittest.TestCase):
 
         #get the current or newly created resource
         current = self.client().get('/bucketlists/{}'.format(b_data['id']))
-        self.assertIn('Build wall mounted', str(results.data))
+        self.assertIn('Build wall mounted', str(current.data))
 
+    def test_bucketlist_deletion(self):
+        '''Test the API that given an id a bucketlist can be deleted. (DELETE request).'''
+
+        #create the resource
+        res = self.client().post('/bucketlists/', data={'name': 'Time travel'})
+        self.assertEqual(res.status_code, 201) #the bucketlist was created
+        res.assertIn('Time travel', str(res.data))
+
+        #delete this absurd bucketlist
+        data = json.loads(res.data.decode('utf-8').replace("'", "\""))
+        result = self.client().get('/bucketlists/{}'.format(data['id']))
+        self.assertEqual(result.status_code, 404) #given id deleted and no longer exists
+
+    def tearDown(self):
+        '''teardown all initialized variables.'''
         
+        with self.app.app_context():
+            db.session.remove()
+            db.drop_all() #drop all tables
 
+if __name__ == '__main__':
+    unittest.main()
