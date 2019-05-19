@@ -2,21 +2,23 @@ import unittest
 import os
 import json
 
-from app import create_app, db
+#from app import create_app, db
+from context import app
+
 
 class BucketListTestCase(unittest.TestCase):
     '''Testing all functionality for the bucketlist model'''
 
     def setUp(self):
         '''Define the test env variables and then bootstrap the app.'''
-        self.app = create_app(config_name='testing')
+        self.app = app.create_app(config_name='testing')
         self.client = self.app.test_client
 
         self.bucketlist = {'name': 'Work at Andela'}
 
         with self.app.app_context():
             #create all the tables as well
-            db.create_all()
+            app.db.create_all()
 
     def test_bucketlist_creation(self):
         '''Test the API can create a bucketlist (POST request).'''
@@ -92,8 +94,8 @@ class BucketListTestCase(unittest.TestCase):
         '''teardown all initialized variables.'''
         
         with self.app.app_context():
-            db.session.remove()
-            db.drop_all() #drop all tables
+            app.db.session.remove()
+            app.db.drop_all() #drop all tables
 
 if __name__ == '__main__':
     unittest.main()
